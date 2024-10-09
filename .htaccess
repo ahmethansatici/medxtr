@@ -1,0 +1,12 @@
+# Başlangıçtaki temel ayarlar
+Options -Indexes
+RewriteEngine On
+
+# Ana sayfa yönlendirmesi
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
+
+# Mime türlerini ayarla
+AddType application/javascript .js
+AddType text/css .css

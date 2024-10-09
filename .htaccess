@@ -9,4 +9,8 @@ RewriteRule ^(.*)$ index.php [QSA,L]
 
 # Mime türlerini ayarla
 AddType application/javascript .js
-AddType text/css .css
+AddType application/javascript .jsx
+AddType application/javascript .mjs
+AddType text/javascript .js
+AddType text/javascript .jsx
+AddType text/javascript .mjs

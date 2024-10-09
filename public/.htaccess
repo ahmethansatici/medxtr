@@ -1,0 +1,3 @@
+<FilesMatch "\.(js|css)$">
+    ForceType application/javascript
+</FilesMatch>

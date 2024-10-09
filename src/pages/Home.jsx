@@ -1,5 +1,5 @@
 import React from "react";
-import Hero from "../components/Hero";
+import Hero from "../components/Hero.jsx";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 

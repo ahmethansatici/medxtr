@@ -1,15 +1,15 @@
 import React from "react";
 import "./App.css";
 
-import Banner from "./components/Banner";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
-import ContactUs from "./components/ContactUs";
-import ServicesSection from "./components/ServicesSection";
-import FAQ from "./components/Faq";
-import WhyChooseTr from "./components/WhyChooseTr";
-import WhyChooseUs from "./components/WhyChooseUs";
-import Home from "./pages/Home";
+import Banner from "./components/Banner.jsx";
+import NavBar from "./components/NavBar.jsx";
+import Footer from "./components/Footer.jsx";
+import ContactUs from "./components/ContactUs.jsx";
+import ServicesSection from "./components/ServicesSection.jsx";
+import FAQ from "./components/Faq.jsx";
+import WhyChooseTr from "./components/WhyChooseTr.jsx";
+import WhyChooseUs from "./components/WhyChooseUs.jsx";
+import Home from "./pages/Home.jsx";
 
 function App() {
   return (

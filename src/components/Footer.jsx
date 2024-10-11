@@ -1,6 +1,5 @@
 import React from "react";
-// import { Facebook, Instagram } from "lucide-react"; // Removed unused icons
-import { FaTiktok } from "react-icons/fa";
+import { FaTiktok, FaFacebook, FaInstagram } from "react-icons/fa"; // Imported Facebook and Instagram icons
 
 // FooterLink component for smooth scroll to section
 const FooterLink = ({ href, children }) => (
@@ -53,15 +52,15 @@ export default function Footer() {
             </p>
             <div className="flex space-x-6">
               <SocialIcon
-                Icon={FaTiktok}
+                Icon={FaFacebook} // Changed to Facebook icon
                 href="https://www.facebook.com/profile.php?id=61561789166899&mibextid=LQQJ4d"
               />
               <SocialIcon
-                Icon={FaTiktok}
+                Icon={FaInstagram} // Changed to Instagram icon
                 href="https://www.instagram.com/medxtr_?igsh=dGdzOGwwaHZndjU1"
               />
               <SocialIcon
-                Icon={FaTiktok}
+                Icon={FaTiktok} // Kept TikTok icon
                 href="https://www.tiktok.com/@medxtr?_t=8o95aVtOQDq&_r=1"
               />
             </div>

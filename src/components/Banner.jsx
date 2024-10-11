@@ -1,5 +1,5 @@
 import React from "react";
-import { Mail } from "lucide-react";
+import { Mail, Facebook, Instagram } from "lucide-react"; // Importing the required icons
 
 const TikTokIcon = ({ size = 20, className = "" }) => (
   <svg
@@ -35,7 +35,7 @@ const Banner = () => {
   const phoneNumber = "+90 532 707 5841"; // Replace with your actual phone number
 
   return (
-    <div className="bg-gradient-to-r from-sky-900 to-sky-950 text-white z-50 py-3">
+    <div className="bg-gradient-to-r from-sky-900 to-sky-950 text-white z-50 py-3 hidden sm:block"> {/* Hide on mobile */}
       <div className="container mx-auto px-4">
         <div className="flex flex-col sm:flex-row items-center justify-between">
           <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-6 mb-3 sm:mb-0">
@@ -67,7 +67,7 @@ const Banner = () => {
               rel="noopener noreferrer"
               className="text-blue-400 hover:text-blue-600 transition-all duration-300 ease-in-out transform hover:scale-110"
             >
-              <Mail size={20} />
+              <Facebook size={20} />
             </a>
             <a
               href="https://www.instagram.com/medxtr_?igsh=dGdzOGwwaHZndjU1"
@@ -75,7 +75,7 @@ const Banner = () => {
               rel="noopener noreferrer"
               className="text-pink-400 hover:text-pink-600 transition-all duration-300 ease-in-out transform hover:scale-110"
             >
-              <Mail size={20} />
+              <Instagram size={20} />
             </a>
             <a
               href="https://www.tiktok.com/@medxtr?_t=8o95aVtOQDq&_r=1"

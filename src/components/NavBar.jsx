@@ -72,10 +72,9 @@ const NavBar = () => {
     { name: "Why Choose Us", to: "why-choose-us" },
     { name: "Services", to: "services" },
     { name: "FAQs", to: "faq" },
-    // { name: "Contact Us", to: "contact-us" },
   ];
 
-  const paddingTop = Math.max(0, 48 - scrollPosition / 2);
+  const marginTop = window.innerWidth >= 768 && scrollPosition === 0 ? '40px' : '0px';
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -91,7 +90,7 @@ const NavBar = () => {
       className={`fixed top-0 w-full z-40 transition-all duration-300 ${
         scrollPosition > 80
           ? "bg-white shadow-lg"
-          : "bg-gradient-to-b from-black/50 to-transparent"
+          : "md:bg-gradient-to-b md:from-black/50 md:to-transparent bg-white md:bg-transparent"
       }`}
       style={{
         transform:
@@ -101,21 +100,22 @@ const NavBar = () => {
               : "translateY(-100%)"
             : "translateY(0)",
         transition: "transform 0.3s ease-in-out",
+        marginTop: marginTop,
+        borderRadius: window.innerWidth < 768 ? '15px' : '0px',  // Mobil görünümde navbar köşeleri yuvarlak
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div
         style={{
-          paddingTop: `${paddingTop}px`,
-          transition: "padding-top 0.3s ease-out",
+          transition: "margin-top 0.3s ease-out",
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-28">
+        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 md:h-28">
             <div className="flex-shrink-0">
               <img
-                className="h-24 w-auto transition-all duration-300"
+                className="h-12 w-auto md:h-24 transition-all duration-300"
                 src="/Logo-1.png"
                 alt="Logo"
               />
@@ -152,11 +152,7 @@ const NavBar = () => {
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className={`inline-flex items-center justify-center p-2 rounded-md transition-colors duration-300 ${
-                  scrollPosition > 80
-                    ? "text-gray-700 hover:text-custom-light-blue"
-                    : "text-white hover:text-gray-300"
-                }`}
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-custom-light-blue transition-colors duration-300"
               >
                 <span className="sr-only">Open main menu</span>
                 {isMenuOpen ? (
@@ -171,17 +167,23 @@ const NavBar = () => {
       </div>
 
       {isMenuOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+        <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg transition-all duration-300 ease-in-out rounded-lg"> {/* Menü de tüm köşeler yuvarlak */}
+          <div className="px-2 pt-2 pb-3 space-y-1">
             {navItems.map((item) => (
               <button
                 key={item.name}
                 onClick={() => scrollToSection(item.to)}
-                className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-custom-light-blue hover:bg-gray-50"
+                className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-custom-light-blue hover:bg-gray-50 transition-colors duration-200"
               >
                 {item.name}
               </button>
             ))}
+            <button
+              onClick={() => scrollToSection("contact-us")}
+              className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-white bg-custom-light-blue hover:bg-custom-light-blue/90 transition-colors duration-200 mt-2"
+            >
+              Contact Us
+            </button>
           </div>
         </div>
       )}

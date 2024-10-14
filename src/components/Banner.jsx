@@ -52,11 +52,11 @@ const Banner = () => {
             </div>
             <div className="flex items-center space-x-2">
               <a
-                href="mailto:jaferi@medxtr.com"
+                href="mailto:info@medxtr.com"
                 className="flex items-center space-x-2 hover:text-blue-300 transition-colors duration-300 ease-in-out transform hover:scale-105"
               >
                 <Mail size={18} className="text-blue-400" />
-                <span className="text-sm">jaferi@medxtr.com</span>
+                <span className="text-sm">info@medxtr.com</span>
               </a>
             </div>
           </div>

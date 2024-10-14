@@ -10,35 +10,34 @@ const Hero = () => {
     <div className="relative w-full min-h-screen h-auto md:h-screen overflow-hidden" ref={ref}>
       <div className="absolute inset-0 bg-hero-img bg-cover bg-center bg-no-repeat" />
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent" />
-      <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pt-32 sm:pt-0"> {/* Adjusted padding-top */}
+      <div className="relative z-10 h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 pt-24 sm:pt-0">
         <div className="w-full max-w-6xl p-4 sm:p-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-blue-200 text-xl mb-2 font-light tracking-wider">
+            <h2 className="text-blue-200 text-4xl text-center sm:text-left sm:-ml-48 mt-12 -mb-24 -mt-12 font-light tracking-wider">
               WELCOME TO{" "}
               <img
                 src="Logo-1.png"
                 alt="MEDX Logo"
-                className="inline-block h-16 sm:h-32 w-24 sm:w-48 -ml-6"
+                className="inline-block sm:-ml-24 mb-16 mt-12" // Added margin-bottom
               />
             </h2>
-
-            <h1 className="text-white text-2xl sm:text-4xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-              Your Trusted Partner for
-              <br className="hidden sm:block" />
-              Medical Journeys to Türkiye
+            <h1 className="text-white text-2xl sm:text-4xl lg:text-6xl font-bold text-center sm:text-left sm:-ml-48 mb-4 sm:mb-6 leading-tight w-full whitespace-pre-line">
+                 Your Trusted Partner for
+                   <br className="block sm:hidden" /> {/* Ensure line break on mobile */}
+                  Medical Journeys to Türkiye
             </h1>
-            <p className="text-blue-100 text-base sm:text-lg mb-6 sm:mb-12 max-w-2xl">
+
+            <p className="text-blue-100 text-base sm:text-lg text-center sm:text-left sm:-ml-48 mb-6 sm:mb-12 max-w-2xl">
               At MedX, we are committed to helping international patients access
               world-class healthcare services in Türkiye. With our personalized
               guidance and comprehensive support, we ensure that every aspect of
               your medical journey is handled with care and professionalism.
             </p>
           </motion.div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4">
             <InfoButton
               icon={<Plane className="w-4 h-4 sm:w-6 sm:h-6" />}

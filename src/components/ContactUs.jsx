@@ -1,19 +1,8 @@
 import React, { useState } from "react";
-import { Send, Phone, MapPin, Loader2 } from "lucide-react";
+import { Send, Phone, MapPin, Mail, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const Alert = ({ children, className }) => (
-  <div className={`p-4 rounded-md ${className}`}>{children}</div>
-);
-
-const InputField = ({
-  label,
-  name,
-  type = "text",
-  value,
-  onChange,
-  placeholder,
-}) => (
+const InputField = ({ label, name, type = "text", placeholder }) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
@@ -29,8 +18,6 @@ const InputField = ({
       type={type}
       id={name}
       name={name}
-      value={value}
-      onChange={onChange}
       required
       className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#093855] focus:border-transparent transition-all duration-300"
       placeholder={placeholder}
@@ -39,29 +26,26 @@ const InputField = ({
 );
 
 const ContactUs = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const [isError, setIsError] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate API call and email sending
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log("Sending email to: jaferi@medxtr.com");
-    console.log("Form data:", formData);
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    setFormData({ name: "", email: "", message: "" }); // Reset form
-    setTimeout(() => setIsSubmitted(false), 5000);
+    
+    const formData = new FormData(e.target);
+    const response = await fetch("https://formspree.io/f/xpwzzpoy", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (response.ok) {
+      setIsSubmitted(true);
+    } else {
+      setIsError(true);
+    }
   };
 
   return (
@@ -72,126 +56,123 @@ const ContactUs = () => {
         transition={{ duration: 0.5 }}
         className="bg-white rounded-2xl shadow-2xl overflow-hidden max-w-6xl w-full mx-auto my-10"
       >
-        <div className="flex flex-col lg:flex-row">
-          <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="lg:w-1/2 bg-gradient-to-br from-[#093855] to-[#0a4d6d] p-12 text-white"
-          >
-            <h2 className="text-4xl font-bold mb-6">Contact Us</h2>
-            <p className="mb-8 text-lg">
-              If you're ready to begin your healthcare journey in Türkiye or
-              have questions about the process, reach out to us today. Our
-              friendly team is here to provide all the information you need and
-              assist with your specific requests.
-            </p>
+        <AnimatePresence>
+          {!isSubmitted ? (
+            <div className="flex flex-col lg:flex-row">
+              <motion.div
+                initial={{ x: -50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                className="lg:w-1/2 bg-gradient-to-br from-[#093855] to-[#0a4d6d] p-12 text-white"
+              >
+                <h2 className="text-4xl font-bold mb-6">Contact Us</h2>
+                <p className="mb-8 text-lg">
+                  If you're ready to begin your healthcare journey in Türkiye or
+                  have questions about the process, reach out to us today. Our
+                  friendly team is here to provide all the information you need and
+                  assist with your specific requests.
+                </p>
+                <div className="space-y-6">
+                  <a href="tel:+905327075841" className="flex items-center space-x-4 hover:text-gray-300 transition-colors duration-300">
+                    <Phone className="w-6 h-6" />
+                    <span>+90 532 707 5841</span>
+                  </a>
+                  
+                  <a href="mailto:info@medxtr.com" className="flex items-center space-x-4 hover:text-gray-300 transition-colors duration-300">
+                    <Mail className="w-6 h-6" />
+                    <span>info@medxtr.com</span>
+                  </a>
+                  <div className="flex items-center space-x-4">
+                    <MapPin className="w-6 h-6" />
+                    <span>İstanbul, Türkiye</span>
+                  </div>
+                </div>
+              </motion.div>
 
-            <div className="space-y-6">
-              <div className="flex items-center space-x-4">
-                <Phone className="w-6 h-6" />
-                <span>+90 532 707 5841</span>
-              </div>
-              <div className="flex items-center space-x-4">
-                <MapPin className="w-6 h-6" />
-                <span>Türkiye</span>
-              </div>
+              <motion.div
+                initial={{ x: 50, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                className="lg:w-1/2 p-12"
+              >
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <InputField
+                    label="Name"
+                    name="name"
+                    placeholder="Your Name"
+                  />
+                  <InputField
+                    label="Email"
+                    name="email"
+                    type="email"
+                    placeholder="your.email@example.com"
+                  />
+                  <InputField
+                    label="Subject"
+                    name="subject"
+                    placeholder="Subject"
+                  />
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                  >
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-gray-700 mb-1"
+                    >
+                      Message
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      required
+                      rows="4"
+                      className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#093855] focus:border-transparent transition-all duration-300 resize-none"
+                      placeholder="How can we assist you with your healthcare needs in Türkiye?"
+                    ></textarea>
+                  </motion.div>
+                  <motion.button
+                    type="submit"
+                    className="w-full bg-[#093855] text-white py-3 px-6 rounded-lg hover:bg-[#0a4d6d] transition-colors duration-300 flex items-center justify-center space-x-2"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <span>Send Message</span>
+                    <Send className="w-5 h-5" />
+                  </motion.button>
+                </form>
+              </motion.div>
             </div>
-
+          ) : (
             <motion.div
-              className="mt-12 p-6 bg-white bg-opacity-10 rounded-lg"
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 300 }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col items-center justify-center p-12 text-center"
             >
-              <p className="text-xl font-semibold mb-2">
-                Let us help you access the world-class healthcare Türkiye has to
-                offer. We look forward to being your trusted partner in health
-                and wellness!
+              <CheckCircle className="w-16 h-16 text-[#093855] mb-4" />
+              <h2 className="text-3xl font-bold mb-4">Thank You!</h2>
+              <p className="text-lg">
+                Thank you for your message! We'll get back to you soon regarding
+                your healthcare journey in Türkiye.
               </p>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={{ x: 50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="lg:w-1/2 p-12"
-          >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <InputField
-                label="Name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Your Name"
-              />
-              <InputField
-                label="Email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="your.email@example.com"
-              />
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
+                className="mt-8"
               >
-                <label
-                  htmlFor="message"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                <button
+                  className="bg-[#093855] text-white py-3 px-6 rounded-lg hover:bg-[#0a4d6d] transition-colors duration-300"
+                  onClick={() => setIsSubmitted(false)}
                 >
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows="4"
-                  className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#093855] focus:border-transparent transition-all duration-300 resize-none"
-                  placeholder="How can we assist you with your healthcare needs in Türkiye?"
-                ></textarea>
+                  Back to Contact Form
+                </button>
               </motion.div>
-              <motion.button
-                type="submit"
-                disabled={isSubmitting}
-                className={`w-full bg-[#093855] text-white py-3 px-6 rounded-lg hover:bg-[#0a4d6d] transition-colors duration-300 flex items-center justify-center space-x-2 ${
-                  isSubmitting ? "opacity-75 cursor-not-allowed" : ""
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {isSubmitting ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                  <>
-                    <span>Send Message</span>
-                    <Send className="w-5 h-5" />
-                  </>
-                )}
-              </motion.button>
-            </form>
-
-            <AnimatePresence>
-              {isSubmitted && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Alert className="mt-6 bg-[#e6f0f5] text-[#093855]">
-                    Thank you for your message! We'll get back to you soon
-                    regarding your healthcare journey in Türkiye.
-                  </Alert>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     </div>
   );

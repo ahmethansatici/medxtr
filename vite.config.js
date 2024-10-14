@@ -1,16 +1,21 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import path from "path"; // path modülünü ekliyoruz
+import path from "path";
 
 export default defineConfig({
-  base:'/',
+  base: '/',
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"), // '@' alias'ını 'src' klasörüne yönlendiriyoruz
+      "@": path.resolve(__dirname, "./src"),
     },
   },
   optimizeDeps: {
-    include: ["react-icons/fa"], // react-icons/fa paketini optimize edilmesi için ekliyoruz
+    include: ["react-icons/fa"],
   },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:5000'
+    }
+  }
 });

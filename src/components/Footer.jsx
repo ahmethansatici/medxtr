@@ -122,11 +122,11 @@ export default function Footer() {
                 </li>
                 <li className="mb-4">
                   <FooterLink
-                    href="mailto:jaferi@medxtr.com"
+                    href="mailto:info@medxtr.com"
                     target="_blank" // Opens in new tab
                     rel="noopener noreferrer" // Security improvement
                   >
-                    Email: jaferi@medxtr.com
+                    Email: info@medxtr.com
                   </FooterLink>
                 </li>
               </FooterSection>
